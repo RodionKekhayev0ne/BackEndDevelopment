@@ -5,10 +5,27 @@
     <title>Update Todo</title>
 </head>
 <body>
-        <form method="POST" action='{%"update/" todo.id %}'>
+ <style>
+    form{
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+    }
+    div{
+    width:300px;
+    margin-top: 30px;
+    }
+    button{
+    margin-top:30px;
+    padding: 10px 5px 10px 5px;
+    }
+</style>
+
+        <form method="POST" action="update/{{todo.id}}">
              {% csrf_token %}
-             {{ form.as_p }}
-    <button type="submit">Create ToDo</button>
+             {{form}}
+        <button type="submit">Create ToDo</button>
         </form>
 </body>
 </html>

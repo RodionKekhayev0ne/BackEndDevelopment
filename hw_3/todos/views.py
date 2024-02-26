@@ -5,27 +5,28 @@ from .models import Todo
 
 # Create your views here.
 def main(request):
-
     todo = Todo.objects.all()
-    context = {'todo':todo}
+    context = {'todo': todo}
     return render(request, 'main.html', context)
 
 
 def createAction(request):
-    form = CUForm()
+    todo = Todo()
+    form = CUForm(request.POST, instance=todo)
     context = {'form': form}
     return render(request, 'form.html', context)
 
 
 def updateAction(request, pk):
-    form = CUForm()
-    todo = Todo.objects.get(pk=id)
-    context = {'form': form, 'todo': todo}
-    return render(request, 'update.html', context)
+    todo = Todo.objects.get(id=pk)
+    form = CUForm(instance=todo)
+
+    return render(request, 'update.html', {'form': form, 'todo': todo})
 
 
 def create(request):
-    form = CUForm(request.POST)
+    todo = Todo()
+    form = CUForm(request.POST,instance=todo)
     if form.is_valid():
         todo = Todo()
         todo.title = form.cleaned_data['title']
@@ -37,12 +38,21 @@ def create(request):
     return redirect("/")
 
 
-def update(request, pk):
-    form = CUForm(request.POST)
-    todo = Todo.objects.get(pk=id)
-    todo.title = form.title
-    todo.description = form.description
-    todo.due_date = form.due_date
-    Todo.save(todo)
+def done(request, pk):
+    todo = Todo.objects.get(id=pk)
+    todo.delete()
+    return redirect("/")
 
-    return render(request, "main.html")
+
+def update(request, pk):
+    todo = Todo.objects.get(id=pk)
+
+    if request.method == 'POST':
+
+        form = CUForm(request.POST or None, instance=todo)
+        if form.is_valid():
+            form.save()
+        return redirect("/")
+    else:
+        form = CUForm(instance=todo)
+    return render(request, '/updateAction/' + pk, {'form': form})
