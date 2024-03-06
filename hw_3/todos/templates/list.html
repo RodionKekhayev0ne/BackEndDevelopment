@@ -1,23 +1,18 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+       <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&family=Pacifico&family=Varela+Round&display=swap" rel="stylesheet">
-    <title>ToDO List</title>
+
+    <title>List with Todos</title>
 </head>
 <body>
 <style>
-
-    a {
-    text-decoration:none;
-    color:#000;
-    }
-
     .pacifico-regular {
   font-family: "Pacifico", cursive;
   font-weight: 400;
@@ -69,6 +64,12 @@ box-shadow: 8px 11px 8px 0px rgba(82, 167, 232, 0.2);
      margin-top: 30px;
 
     }
+    a {
+    text-decoration:none;
+    color:#000;
+    }
+    .main-block a {
+    padding-left: 20px;}
     p{
     padding-top:20px;}
     .control{
@@ -87,17 +88,16 @@ box-shadow: 8px 11px 8px 0px rgba(82, 167, 232, 0.2);
     width: 30px;
     }
 </style>
-<a href="createList/" class="create"><img src="static/img/plus.png"></a>
+<a href="createAction/{{list.pk}}" class="create">Create</a>
 <div class="main-block">
-             <h1>Todo List</h1>
-
+    <h1>Todo List</h1>
           {%for task in todo%}
     <div class="todo">
-          <h2><a href="showList/{{task.pk}}">{{task.title}}</a></h2>
+          <h2>{{task.title}}</h2>
           <p>{{task.description}}</p>
         <div class="control">
-            <a href="updateList/{{task.pk}}"><img src="static/img/create.png"></a>
-            <a href="doneList/{{task.pk}}"><img src="static/img/check-mark.png"></a>
+            <a href="updateAction/{{task.pk}}">Update</a>
+            <a href="done/{{task.pk}}">Done</a>
         </div>
            </div>
           {%endfor%}
