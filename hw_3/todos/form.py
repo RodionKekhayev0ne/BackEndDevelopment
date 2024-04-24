@@ -24,8 +24,11 @@ class REGUserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password']
+        # widgets = [
+        #     'username': forms.TextInput(attrs={'placeholder': 'User name', 'style': 'background: red'})
+        # ]
 
-    # username = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'placeholder': 'User name'}))
+    # username =
     # email = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'placeholder': 'User name'}))
     # password = forms.CharField(max_length=200,
     #                            widget=forms.TextInput(attrs={'placeholder': 'Password', 'type': 'password'}))
